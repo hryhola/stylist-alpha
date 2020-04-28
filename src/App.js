@@ -1,26 +1,69 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import HeaderContainer from './components/Header/Header.container';
+
+import StylistListPage from './pages/StylistListPage/StylistListPage';
+import HomePage from './pages/HomePage/HomePage';
+import SignInPage from './pages/SignInPage/SignInPage';
+import SignUpPage from './pages/SignUpPage/SignUpPage';
+
+import { createStructuredSelector } from 'reselect';
+import { auth, createProfieDocument } from './firebase/firebase.utils';
+import { setCurrentStylist as setCurrentStylistAction } from './redux/stylits/stylist.actions';
+
+import { selectCurrentStylist } from './redux/stylits/stylist.selectors';
+
+class App extends React.Component {
+  componentDidMount() {
+    const { setCurrentStylist } = this.props;
+
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createProfieDocument(userAuth);
+
+        userRef.onSnapshot((snapShot) => {
+          setCurrentStylist({
+            id: snapShot.id,
+            ...snapShot.data(),
+          });
+        });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
+  render() {
+    const { currentStylist } = this.props;
+    return (
+      <>
+        <HeaderContainer />
+        {currentStylist ? (
+          <Switch>
+            <Route exact path='/' component={HomePage} />
+            <Route path='/stylist-list' component={StylistListPage} />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route exact path='/' component={StylistListPage} />
+            <Route path='/signin' component={SignInPage} />
+            <Route path='/signup' component={SignUpPage} />
+          </Switch>
+        )}
+      </>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = createStructuredSelector({
+  currentStylist: selectCurrentStylist,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentStylist: (user) => dispatch(setCurrentStylistAction(user)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
