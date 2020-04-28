@@ -29,8 +29,9 @@ class App extends React.Component {
             ...snapShot.data(),
           });
         });
-      }
+      } else setCurrentStylist(null);
     });
+    auth.signOut();
   }
 
   componentWillUnmount() {

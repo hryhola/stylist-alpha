@@ -24,7 +24,9 @@ const SignUp = () => {
         values.email,
         values.password
       );
-      await createProfieDocument(user, values);
+      const data = { ...values };
+      delete data.confirmPassword;
+      await createProfieDocument(user, data);
     } catch (error) {
       console.error(error);
     }

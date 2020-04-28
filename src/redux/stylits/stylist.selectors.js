@@ -6,3 +6,13 @@ export const selectCurrentStylist = createSelector(
   [selectStylist],
   (stylist) => stylist.currentStylist
 );
+
+export const selectStylistList = createSelector(
+  [selectStylist],
+  (stylist) => stylist.stylistList
+);
+
+export const selectStylistListLoading = createSelector(
+  [selectStylist],
+  (stylist) => stylist.stylistListLoading
+);
