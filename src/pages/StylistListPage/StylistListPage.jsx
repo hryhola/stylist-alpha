@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Container, CircularProgress } from '@material-ui/core';
+import { Container, CircularProgress, Grid } from '@material-ui/core';
 import StylistListItem from '../../components/StylistListItem/StylistListItem';
 
 import {
@@ -12,12 +12,17 @@ import {
 import { fetchStylistListAsync } from '../../redux/stylits/redux-thunk/fetchStylistList';
 
 const StylistListPage = ({ stylistList, fetchStylistList, isLoading }) => {
-  useEffect(() => fetchStylistList(), []);
+  useEffect(() => {
+    const fetchList = async () => fetchStylistList();
+    fetchList();
+  }, []);
 
   return (
     <Container>
       {isLoading ? (
-        <CircularProgress />
+        <Grid container direction='row' justify='center' alignItems='center'>
+          <CircularProgress />
+        </Grid>
       ) : (
         stylistList.map((stylist) => <StylistListItem stylist={stylist} />)
       )}

@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import HeaderContainer from './components/Header/Header.container';
 
+import StylistPage from './pages/StylistPage/StylistPage';
 import StylistListPage from './pages/StylistListPage/StylistListPage';
 import HomePage from './pages/HomePage/HomePage';
 import SignInPage from './pages/SignInPage/SignInPage';
@@ -42,18 +43,21 @@ class App extends React.Component {
     return (
       <>
         <HeaderContainer />
-        {currentStylist ? (
-          <Switch>
-            <Route exact path='/' component={HomePage} />
-            <Route path='/stylist-list' component={StylistListPage} />
-          </Switch>
-        ) : (
-          <Switch>
-            <Route exact path='/' component={StylistListPage} />
-            <Route path='/signin' component={SignInPage} />
-            <Route path='/signup' component={SignUpPage} />
-          </Switch>
-        )}
+        <Switch>
+          <Route path='/stylist/:id' component={StylistPage} />
+          {currentStylist ? (
+            <Switch>
+              <Route exact path='/' component={HomePage} />
+              <Route path='/stylist-list' component={StylistListPage} />
+            </Switch>
+          ) : (
+            <Switch>
+              <Route exact path='/' component={StylistListPage} />
+              <Route path='/signin' component={SignInPage} />
+              <Route path='/signup' component={SignUpPage} />
+            </Switch>
+          )}
+        </Switch>
       </>
     );
   }

@@ -7,7 +7,7 @@ import useStyles from './StylistListItem.styles';
 const StylistListItem = ({
   stylist: {
     id,
-    email,
+    phoneNumber,
     stylistName,
     workTimeStart,
     workTimeEnd,
@@ -26,11 +26,11 @@ const StylistListItem = ({
         alignItems='center'
       >
         <div>
-          <Typography variant='h4' to={`/stylist/${id}`} component={RouterLink}>
-            {stylistName}
+          <Typography variant='h4'>
+            <RouterLink to={`/stylist/${id}`}>{stylistName}</RouterLink>
           </Typography>
           <Typography color='textSecondary'>{shopAddres}</Typography>
-          <Typography color='textSecondary'>{email}</Typography>
+          <Typography color='textSecondary'>{phoneNumber}</Typography>
           <p>{about}</p>
         </div>
         <div>

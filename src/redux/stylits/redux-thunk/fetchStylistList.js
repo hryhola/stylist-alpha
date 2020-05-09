@@ -19,8 +19,8 @@ export const fetchStylistListAsync = () => {
   return async (dispatch) => {
     dispatch(fetchStylistListStarted());
     try {
-      const collectionRef = firestore.collection('stylists');
-      const snapshot = await collectionRef.get();
+      const listRef = firestore.collection('stylists');
+      const snapshot = await listRef.get();
       const list = snapshot.docs.map((s) => ({ ...s.data(), id: s.id }));
       dispatch(fetchStylistListSuccess(list));
     } catch (error) {

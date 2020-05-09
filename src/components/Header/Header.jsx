@@ -71,7 +71,7 @@ const Header = ({ currentStylist }) => {
                   Увійти
                 </Button>
                 <Button color='inherit' to='/signup' component={RouterLink}>
-                  Вийти
+                  Реєстрація
                 </Button>
               </>
             )}
