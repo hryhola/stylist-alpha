@@ -12,7 +12,7 @@ const StylistListItem = ({
     workTimeStart,
     workTimeEnd,
     about,
-    shopAddres,
+    shopAddress,
   },
 }) => {
   const classes = useStyles();
@@ -29,7 +29,7 @@ const StylistListItem = ({
           <Typography variant='h4'>
             <RouterLink to={`/stylist/${id}`}>{stylistName}</RouterLink>
           </Typography>
-          <Typography color='textSecondary'>{shopAddres}</Typography>
+          <Typography color='textSecondary'>{shopAddress}</Typography>
           <Typography color='textSecondary'>{phoneNumber}</Typography>
           <p>{about}</p>
         </div>

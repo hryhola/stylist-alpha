@@ -2,7 +2,7 @@ import { StylistTypes } from './stylist.types';
 
 const INITIAL_STATE = {
   currentStylist: null,
-  stylistList: null,
+  stylistList: [],
   stylistListLoading: true,
   fetchStylistError: null,
 };
@@ -32,7 +32,38 @@ const stylistReducer = (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         stylistListLoading: false,
         fetchStylistError: null,
-        stylistList: payload,
+        stylistList: [...payload],
+      };
+    }
+    case StylistTypes.FETCH_STYLIST_START: {
+      return {
+        ...state,
+        fetchStylistError: null,
+      };
+    }
+    case StylistTypes.FETCH_STYLIST_FAILURE: {
+      return {
+        ...state,
+        fetchStylistError: payload,
+      };
+    }
+    case StylistTypes.FETCH_STYLIST_SUCCESS: {
+      return {
+        ...state,
+        fetchStylistError: null,
+        stylistList: [
+          ...state.stylistList.filter((s) => s.id !== payload.id),
+          payload,
+        ],
+      };
+    }
+    case StylistTypes.FETCH_STYLIST_CONTENT_SUCCESS: {
+      return {
+        ...state,
+        stylistList: [
+          ...state.stylistList.filter((s) => s.id !== payload.id),
+          { ...state.stylistList.find((s) => s.id === payload.id), ...payload },
+        ],
       };
     }
     default:

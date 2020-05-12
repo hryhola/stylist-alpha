@@ -16,3 +16,8 @@ export const selectStylistListLoading = createSelector(
   [selectStylist],
   (stylist) => stylist.stylistListLoading
 );
+
+export const selectFetchStylistError = createSelector(
+  [selectStylist],
+  (stylist) => stylist.fetchStylistError
+);

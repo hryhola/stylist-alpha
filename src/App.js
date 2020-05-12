@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import HeaderContainer from './components/Header/Header.container';
 
-import StylistPage from './pages/StylistPage/StylistPage';
+import StylistPageContatiner from './pages/StylistPage/StylistPage.container';
 import StylistListPage from './pages/StylistListPage/StylistListPage';
 import HomePage from './pages/HomePage/HomePage';
 import SignInPage from './pages/SignInPage/SignInPage';
@@ -44,7 +44,7 @@ class App extends React.Component {
       <>
         <HeaderContainer />
         <Switch>
-          <Route path='/stylist/:id' component={StylistPage} />
+          <Route path='/stylist/:id' component={StylistPageContatiner} />
           {currentStylist ? (
             <Switch>
               <Route exact path='/' component={HomePage} />

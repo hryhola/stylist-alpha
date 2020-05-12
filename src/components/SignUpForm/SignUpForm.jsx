@@ -39,7 +39,7 @@ const SignUp = () => {
     facebookLink: '',
     instagramLink: '',
     phoneNumber: '',
-    shopAddres: '',
+    shopAddress: '',
     shopName: '',
     stylistName: '',
     workTimeStart: '',
@@ -53,7 +53,7 @@ const SignUp = () => {
     stylistName: yup.string().required(reqText),
     phoneNumber: yup.string().required(reqText),
     email: yup.string().email().required(reqText),
-    shopAddres: yup.string().required(reqText),
+    shopAddress: yup.string().required(reqText),
     workTimeStart: yup.string().required(reqText),
     workTimeEnd: yup.string().required(reqText),
     shopName: yup.string(),
@@ -144,13 +144,13 @@ const SignUp = () => {
                   return props.handleChange(e);
                 }}
                 onBlur={props.handleBlur}
-                value={props.values.shopAddres}
-                name='shopAddres'
+                value={props.values.shopAddress}
+                name='shopAddress'
                 disabled={props.isSubmitting}
                 isVisibleError={
-                  props.errors.shopAddres && props.touched.shopAddres
+                  props.errors.shopAddress && props.touched.shopAddress
                 }
-                errorMessage={props.errors.shopAddres}
+                errorMessage={props.errors.shopAddress}
               />
               <TextFieldWithError
                 className={classes.textFieldNotRequired}

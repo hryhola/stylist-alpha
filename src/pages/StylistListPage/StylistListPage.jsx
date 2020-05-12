@@ -15,7 +15,7 @@ const StylistListPage = ({ stylistList, fetchStylistList, isLoading }) => {
   useEffect(() => {
     const fetchList = async () => fetchStylistList();
     fetchList();
-  }, []);
+  }, [fetchStylistList]);
 
   return (
     <Container>
@@ -24,7 +24,9 @@ const StylistListPage = ({ stylistList, fetchStylistList, isLoading }) => {
           <CircularProgress />
         </Grid>
       ) : (
-        stylistList.map((stylist) => <StylistListItem stylist={stylist} />)
+        stylistList.map((stylist) => (
+          <StylistListItem key={stylist.id} stylist={stylist} />
+        ))
       )}
     </Container>
   );
