@@ -52,7 +52,7 @@ const SignUp = () => {
   const validationSchema = yup.object().shape({
     stylistName: yup.string().required(reqText),
     phoneNumber: yup.string().required(reqText),
-    email: yup.string().email().required(reqText),
+    email: yup.string().email('Введіть коректну пошту').required(reqText),
     shopAddress: yup.string().required(reqText),
     workTimeStart: yup.string().required(reqText),
     workTimeEnd: yup.string().required(reqText),

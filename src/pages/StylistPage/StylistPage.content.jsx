@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Typography,
@@ -13,10 +13,13 @@ import {
   Button,
 } from '@material-ui/core';
 
+import AddCommentDialogContainer from '../../components/AddCommentDialog/AddCommentDialog.container';
+
 import useStyles from './StylistPage.styles';
 
 const StylistPageContent = ({
   stylist: {
+    id,
     stylistName,
     shopName,
     shopAddress,
@@ -31,6 +34,8 @@ const StylistPageContent = ({
     services,
   },
 }) => {
+  const [isOpenCommentDialog, setIsOpenCommentDialog] = useState(false);
+
   const classes = useStyles();
   return (
     <>
@@ -44,10 +49,10 @@ const StylistPageContent = ({
             alignItems='center'
           >
             <Typography variant='h4'>{stylistName}</Typography>
-            <Box class={classes.linksContainer}>
+            <Box className={classes.linksContainer}>
               {instagramLink && (
                 <a
-                  class={classes.links}
+                  className={classes.links}
                   href={instagramLink}
                   target='_blank'
                   rel='noopener noreferrer'
@@ -58,7 +63,7 @@ const StylistPageContent = ({
               <br />
               {facebookLink && (
                 <a
-                  class={classes.links}
+                  className={classes.links}
                   href={facebookLink}
                   target='_blank'
                   rel='noopener noreferrer'
@@ -68,7 +73,7 @@ const StylistPageContent = ({
               )}
               <br />
               {email && (
-                <a class={classes.links} href={`mailto:${email}`}>
+                <a className={classes.links} href={`mailto:${email}`}>
                   {email}
                 </a>
               )}
@@ -103,7 +108,7 @@ const StylistPageContent = ({
           <TableBody>
             {services &&
               services.map((row) => (
-                <TableRow key={services.id}>
+                <TableRow key={row.id}>
                   <TableCell component='th' scope='row'>
                     {row.displayName}
                   </TableCell>
@@ -139,8 +144,9 @@ const StylistPageContent = ({
       <Grid container direction='row' justify='center' alignItems='center'>
         <Button
           className={classes.commentButton}
-          color='textSecondary'
+          color='default'
           variant='contained'
+          onClick={() => setIsOpenCommentDialog(true)}
         >
           Залишити відгук
         </Button>
@@ -148,7 +154,7 @@ const StylistPageContent = ({
       <Grid container spacing={3} className={classes.commentsContainer}>
         {comments &&
           comments.map((comment) => (
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} key={comment.id}>
               <Paper className={classes.comment} key={comment.id}>
                 <Typography variant='h5'>{comment.commentatorName}</Typography>
                 <Typography>{comment.text}</Typography>
@@ -156,6 +162,12 @@ const StylistPageContent = ({
             </Grid>
           ))}
       </Grid>
+      {/* Modal Dialogs */}
+      <AddCommentDialogContainer
+        stylistId={id}
+        isOpen={isOpenCommentDialog}
+        setIsOpen={setIsOpenCommentDialog}
+      />
     </>
   );
 };

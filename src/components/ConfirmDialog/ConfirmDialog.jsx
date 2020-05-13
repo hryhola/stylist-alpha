@@ -18,9 +18,9 @@ const ConfirmDialog = ({ title, children, open, setOpen, onConfirm }) => {
         <Button
           variant='contained'
           onClick={() => setOpen(false)}
-          color='secondary'
+          color='default'
         >
-          No
+          Назад
         </Button>
         <Button
           variant='contained'
@@ -28,9 +28,9 @@ const ConfirmDialog = ({ title, children, open, setOpen, onConfirm }) => {
             setOpen(false);
             onConfirm();
           }}
-          color='default'
+          color='secondary'
         >
-          Yes
+          Підтвердити
         </Button>
       </DialogActions>
     </Dialog>

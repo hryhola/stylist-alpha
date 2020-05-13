@@ -32,7 +32,10 @@ const SignIn = () => {
   };
 
   const validationSchema = yup.object().shape({
-    email: yup.string().email().required("Це обов'язкове поле!"),
+    email: yup
+      .string()
+      .email('Введіть коректну пошту')
+      .required("Це обов'язкове поле!"),
     password: yup
       .string()
       .min(6, 'Пароль занадто короткий')

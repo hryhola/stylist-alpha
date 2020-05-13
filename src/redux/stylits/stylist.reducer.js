@@ -5,6 +5,9 @@ const INITIAL_STATE = {
   stylistList: [],
   stylistListLoading: true,
   fetchStylistError: null,
+
+  isSendingComment: false,
+  sendingCommentError: null,
 };
 
 const stylistReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -63,6 +66,37 @@ const stylistReducer = (state = INITIAL_STATE, { type, payload }) => {
         stylistList: [
           ...state.stylistList.filter((s) => s.id !== payload.id),
           { ...state.stylistList.find((s) => s.id === payload.id), ...payload },
+        ],
+      };
+    }
+    case StylistTypes.SEND_COMMENT_START: {
+      return {
+        ...state,
+        isSendingComment: true,
+        sendingCommentError: null,
+      };
+    }
+    case StylistTypes.SEND_COMMENT_FAILURE: {
+      return {
+        ...state,
+        isSendingComment: false,
+        sendingCommentError: payload,
+      };
+    }
+    case StylistTypes.SEND_COMMENT_SUCCESS: {
+      const stylist = state.stylistList.find((s) => s.id === payload.stylistId);
+      stylist.comments.push({
+        commentatorName: payload.comment.name,
+        commentatorEmail: payload.comment.email,
+        text: payload.comment.text,
+      });
+      return {
+        ...state,
+        isSendingComment: false,
+        sendingCommentError: null,
+        stylistList: [
+          ...state.stylistList.filter((s) => s.id !== payload.stylistId),
+          stylist,
         ],
       };
     }

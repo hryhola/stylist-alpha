@@ -21,3 +21,13 @@ export const selectFetchStylistError = createSelector(
   [selectStylist],
   (stylist) => stylist.fetchStylistError
 );
+
+export const selectSendCommentError = createSelector(
+  [selectStylist],
+  (stylist) => stylist.sendingCommentError
+);
+
+export const selectIsSendingComment = createSelector(
+  [selectStylist],
+  (stylist) => stylist.isSendingComment
+);

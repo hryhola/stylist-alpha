@@ -47,7 +47,6 @@ export const fetchStylistContentAsync = (id) => {
         dispatch(fetchStylistContentFailure({ message: 'Not exists' }));
       }
     } catch (error) {
-      console.log('error', error);
       dispatch(fetchStylistContentFailure(error));
     }
   };
