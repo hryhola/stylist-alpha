@@ -13,6 +13,7 @@ import {
   Button,
 } from '@material-ui/core';
 
+import SessionRequestDialogContainer from '../../components/SessionRequestDialog/SessionRequestDialog.container';
 import AddCommentDialogContainer from '../../components/AddCommentDialog/AddCommentDialog.container';
 
 import useStyles from './StylistPage.styles';
@@ -35,6 +36,9 @@ const StylistPageContent = ({
   },
 }) => {
   const [isOpenCommentDialog, setIsOpenCommentDialog] = useState(false);
+  const [isOpenSessionRequestDialog, setIsOpenSessionRequestDialog] = useState(
+    false
+  );
 
   const classes = useStyles();
   return (
@@ -135,6 +139,7 @@ const StylistPageContent = ({
               className={classes.submitButton}
               color='primary'
               variant='contained'
+              onClick={() => setIsOpenSessionRequestDialog(true)}
             >
               Записатись на сеанс
             </Button>
@@ -167,6 +172,12 @@ const StylistPageContent = ({
         stylistId={id}
         isOpen={isOpenCommentDialog}
         setIsOpen={setIsOpenCommentDialog}
+      />
+
+      <SessionRequestDialogContainer
+        stylist={{ id, services }}
+        isOpen={isOpenSessionRequestDialog}
+        setIsOpen={setIsOpenSessionRequestDialog}
       />
     </>
   );

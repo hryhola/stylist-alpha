@@ -36,7 +36,6 @@ export const sendCommentAsync = ({
         dispatch(
           sendCommentSuccess({ stylistId, comment: { name, email, text } })
         );
-      console.log(response);
     } catch (error) {
       console.error('error', error);
       dispatch(sendCommentFailure(error));

@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 
+import { reCaptcha } from '../../firebase/firebase.utils';
+
+import ReCAPTCHA from 'react-google-recaptcha';
+
 import {
   Grid,
   Dialog,
@@ -28,7 +32,7 @@ const AddCommentDialog = ({
   const [submitErrorMessage, setSubmitErrorMessage] = useState(
     error ? JSON.stringify(error).toString() : ''
   );
-
+  const [reCaptchaValue, setReCaptchaValue] = useState('');
   const initialValues = {
     name: '',
     email: '',
@@ -43,21 +47,23 @@ const AddCommentDialog = ({
       .required("Це обов'язкове поле!"),
     text: yup.string().required("Це обов'язкове поле!"),
   });
-
+  const recaptchaRef = React.createRef();
   const handleBack = () => setIsOpen(false);
+  const handleChangerReCaptcha = (value) => setReCaptchaValue(value);
   const handleSubmit = async (values, actions) => {
-    const comment = { ...values };
-    sendComment({ stylistId, comment });
-    setIsOpen(false);
+    console.log(reCaptchaValue);
+    if (reCaptchaValue) {
+      const comment = { ...values };
+      sendComment({ stylistId, comment });
+      setIsOpen(false);
+    } else {
+      alert('Пройдіть ReCAPTCHA');
+    }
   };
 
   const classes = useStyles();
   return (
-    <Dialog
-      open={isOpen}
-      onClose={() => setIsOpen(false)}
-      aria-labelledby='confirm-dialog'
-    >
+    <Dialog open={isOpen} onClose={handleBack} aria-labelledby='confirm-dialog'>
       <DialogTitle className={classes.title} id='confirm-dialog'>
         Залиште відгук
       </DialogTitle>
@@ -122,6 +128,13 @@ const AddCommentDialog = ({
                     disabled={isSending}
                     isVisibleError={props.errors.text && props.touched.text}
                     errorMessage={props.errors.text}
+                  />
+                </Grid>
+                <Grid item>
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={reCaptcha.clientKey}
+                    onChange={handleChangerReCaptcha}
                   />
                 </Grid>
                 {submitErrorMessage && (

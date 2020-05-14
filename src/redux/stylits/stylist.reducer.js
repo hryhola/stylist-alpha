@@ -8,6 +8,9 @@ const INITIAL_STATE = {
 
   isSendingComment: false,
   sendingCommentError: null,
+
+  isSendingSessionRequest: false,
+  sendingSessionRequestError: null,
 };
 
 const stylistReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -98,6 +101,27 @@ const stylistReducer = (state = INITIAL_STATE, { type, payload }) => {
           ...state.stylistList.filter((s) => s.id !== payload.stylistId),
           stylist,
         ],
+      };
+    }
+    case StylistTypes.SEND_SESSION_REQUEST_START: {
+      return {
+        ...state,
+        isSendingSessionRequest: true,
+        sendingSessionRequestError: null,
+      };
+    }
+    case StylistTypes.SEND_SESSION_REQUEST_FAILURE: {
+      return {
+        ...state,
+        isSendingSessionRequest: false,
+        sendingSessionRequestError: payload,
+      };
+    }
+    case StylistTypes.SEND_SESSION_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        isSendingSessionRequest: false,
+        sendingSessionRequestError: null,
       };
     }
     default:

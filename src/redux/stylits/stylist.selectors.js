@@ -31,3 +31,13 @@ export const selectIsSendingComment = createSelector(
   [selectStylist],
   (stylist) => stylist.isSendingComment
 );
+
+export const selectSendSessionRequestError = createSelector(
+  [selectStylist],
+  (stylist) => stylist.sendingSessionRequestError
+);
+
+export const selectIsSendingSessionRequest = createSelector(
+  [selectStylist],
+  (stylist) => stylist.isSendingSessionRequest
+);
