@@ -51,11 +51,6 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
   commentsContainer: {
     marginTop: spacing(2),
   },
-  comment: {
-    marginLeft: spacing(2),
-    marginRight: spacing(2),
-    padding: spacing(2),
-  },
 }));
 
 export default useStyles;

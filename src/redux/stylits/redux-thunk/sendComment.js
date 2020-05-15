@@ -31,6 +31,7 @@ export const sendCommentAsync = ({
         commentatorName: name,
         commentatorEmail: email,
         text,
+        createdAt: new Date(),
       });
       if (response.id)
         dispatch(

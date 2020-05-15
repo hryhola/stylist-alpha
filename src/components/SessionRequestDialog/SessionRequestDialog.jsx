@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 
+import { reCaptcha } from '../../firebase/firebase.utils';
+
+import ReCAPTCHA from 'react-google-recaptcha';
+
 import {
   Grid,
   Dialog,
@@ -33,20 +37,26 @@ const SessionRequestDialog = ({
   const [submitErrorMessage, setSubmitErrorMessage] = useState(
     error ? JSON.stringify(error).toString() : ''
   );
+  const [reCaptchaValue, setReCaptchaValue] = useState('');
 
   const classes = useStyles();
   const handleBack = () => setIsOpen(false);
+  const handleChangerReCaptcha = (value) => setReCaptchaValue(value);
   const handleSubmit = async (values, actions) => {
-    const sessionRequest = { ...values };
-    sendSessionRequest({ stylistId: id, sessionRequest });
-    setIsOpen(false);
+    if (reCaptchaValue) {
+      const sessionRequest = { ...values };
+      sendSessionRequest({ stylistId: id, sessionRequest });
+      setIsOpen(false);
+    } else {
+      alert('Пройдіть ReCAPTCHA');
+    }
   };
 
   const initialValues = {
     clientName: '',
     clientPhoneNumber: '',
     clientSocialLink: '',
-    dataTime: moment(Date.now()).format('YYYY-MM-DDTkk:mm'),
+    dateTime: moment(Date.now()).format('YYYY-MM-DDTkk:mm'),
     service: '',
   };
 
@@ -58,7 +68,7 @@ const SessionRequestDialog = ({
       .integer('Це не номер телефону')
       .required("Це обов'язкове поле!"),
     clientSocialLink: yup.string(),
-    dataTime: yup.date("Це обов'язкове поле!"),
+    dateTime: yup.date("Це обов'язкове поле!"),
     service: yup.string().required("Це обов'язкове поле!"),
   });
   return (
@@ -141,18 +151,18 @@ const SessionRequestDialog = ({
                   <Grid item>
                     <TextFieldWithError
                       className={classes.formControl}
-                      value={props.values.dataTime}
+                      value={props.values.dateTime}
                       type='datetime-local'
                       variant='outlined'
                       onChange={handleChange}
                       onBlur={props.handleBlur}
                       label='Час та дата'
-                      name='dataTime'
+                      name='dateTime'
                       disabled={isSending}
                       isVisibleError={
-                        props.errors.dataTime && props.touched.dataTime
+                        props.errors.dateTime && props.touched.dateTime
                       }
-                      errorMessage={props.errors.dataTime}
+                      errorMessage={props.errors.dateTime}
                     />
                   </Grid>
                   <Grid item>
@@ -170,6 +180,12 @@ const SessionRequestDialog = ({
                         props.touched.clientSocialLink
                       }
                       errorMessage={props.errors.clientSocialLink}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ReCAPTCHA
+                      sitekey={reCaptcha.clientKey}
+                      onChange={handleChangerReCaptcha}
                     />
                   </Grid>
                   {submitErrorMessage && (

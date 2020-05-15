@@ -20,7 +20,7 @@ export const sendSessionRequestAsync = ({
     clientName,
     clientPhoneNumber,
     clientSocialLink,
-    dataTime,
+    dateTime,
     service,
   },
 }) => {
@@ -42,8 +42,9 @@ export const sendSessionRequestAsync = ({
         clientName,
         clientPhoneNumber,
         clientSocialLink,
-        dataTime: new Date(dataTime),
+        dateTime: new Date(dateTime),
         service: serviceRef,
+        createdAt: new Date(),
       });
       if (response.id) dispatch(sendSessionRequestSuccess());
     } catch (error) {

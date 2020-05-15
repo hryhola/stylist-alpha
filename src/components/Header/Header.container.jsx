@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectCurrentStylist } from '../../redux/stylits/stylist.selectors';
+import { selectStylistData } from '../../redux/organizer/organizer.selectors';
 import Header from './Header';
 
 const mapStateToProps = createStructuredSelector({
-  currentStylist: selectCurrentStylist,
+  stylistData: selectStylistData,
 });
 
 const HeaderContainer = connect(mapStateToProps)(Header);

@@ -17,8 +17,9 @@ import useStyles from './Header.styles';
 import { ReactComponent as Logo } from '../../logo.svg';
 
 import { auth } from '../../firebase/firebase.utils';
-const Header = ({ currentStylist }) => {
+const Header = ({ stylistData }) => {
   const classes = useStyles();
+  const isAuthorized = !!stylistData;
   return (
     <div className={classes.root}>
       <AppBar position='static'>
@@ -37,7 +38,7 @@ const Header = ({ currentStylist }) => {
             <Typography variant='h6' className={classes.title}>
               StylistAlpha
             </Typography>
-            {currentStylist ? (
+            {isAuthorized ? (
               <>
                 <div className={classes.navigation}>
                   <Button
@@ -52,7 +53,7 @@ const Header = ({ currentStylist }) => {
                   <Hidden xsDown>
                     <Typography variant='subtitle1' className={classes.welcome}>
                       Вітаю,&nbsp;
-                      {currentStylist.stylistName}
+                      {stylistData.stylistName}
                     </Typography>
                   </Hidden>
                   <Button onClick={() => auth.signOut()} color='inherit'>

@@ -51,7 +51,6 @@ const AddCommentDialog = ({
   const handleBack = () => setIsOpen(false);
   const handleChangerReCaptcha = (value) => setReCaptchaValue(value);
   const handleSubmit = async (values, actions) => {
-    console.log(reCaptchaValue);
     if (reCaptchaValue) {
       const comment = { ...values };
       sendComment({ stylistId, comment });

@@ -1,7 +1,7 @@
 import { firestore } from '../../../firebase/firebase.utils';
 import { StylistTypes } from '../stylist.types';
 
-const getDataFromCollectionSpapshot = (snapshot) =>
+const getDataFromCollectionSnapshot = (snapshot) =>
   snapshot.docs.map((s) => ({
     id: s.id,
     ...s.data(),
@@ -31,11 +31,11 @@ export const fetchStylistContentAsync = (id) => {
       if (stylistSnapshot.exists) {
         const servicesRef = stylistRef.collection('services');
         const servicesSnapshot = await servicesRef.get();
-        const services = getDataFromCollectionSpapshot(servicesSnapshot);
+        const services = getDataFromCollectionSnapshot(servicesSnapshot);
 
         const commentsRef = stylistRef.collection('comments');
         const commentsSnapshop = await commentsRef.get();
-        const comments = getDataFromCollectionSpapshot(commentsSnapshop);
+        const comments = getDataFromCollectionSnapshot(commentsSnapshop);
 
         const stylistContent = {
           id,

@@ -44,6 +44,5 @@ export const createProfieDocument = async (stylistAuth, additionalData) => {
 };
 
 export const reCaptcha = {
-  clientKey: '6LcqyvYUAAAAAFeTUykUgLsQw4gfNzwDxdoib6Rk',
-  serverKey: '6LcqyvYUAAAAANjSUWZspKp38wcnz2_uRzew9cFk',
+  clientKey: process.env.REACT_APP_RECAPTCA_KEY,
 };

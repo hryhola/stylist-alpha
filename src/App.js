@@ -12,43 +12,43 @@ import SignUpPage from './pages/SignUpPage/SignUpPage';
 
 import { createStructuredSelector } from 'reselect';
 import { auth, createProfieDocument } from './firebase/firebase.utils';
-import { setCurrentStylist as setCurrentStylistAction } from './redux/stylits/stylist.actions';
 
-import { selectCurrentStylist } from './redux/stylits/stylist.selectors';
+import { setStylistData as setStylistDataAction } from './redux/organizer/organizer.actions';
+import { selectStylistData } from './redux/organizer/organizer.selectors';
 
 class App extends React.Component {
   componentDidMount() {
-    const { setCurrentStylist } = this.props;
+    const { setStylistData, history } = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createProfieDocument(userAuth);
 
         userRef.onSnapshot((snapShot) => {
-          setCurrentStylist({
+          setStylistData({
             id: snapShot.id,
             ...snapShot.data(),
           });
         });
-      } else setCurrentStylist(null);
+        history.push('/');
+      } else setStylistData(userAuth);
     });
-    auth.signOut();
   }
 
   componentWillUnmount() {
     this.unsubscribeFromAuth();
   }
   render() {
-    const { currentStylist } = this.props;
+    const isAuthorized = !!this.props.stylistData;
     return (
       <>
         <HeaderContainer />
         <Switch>
           <Route path='/stylist/:id' component={StylistPageContatiner} />
-          {currentStylist ? (
+          {isAuthorized ? (
             <Switch>
-              <Route exact path='/' component={HomePage} />
               <Route path='/stylist-list' component={StylistListPage} />
+              <Route path='/' component={HomePage} />
             </Switch>
           ) : (
             <Switch>
@@ -64,11 +64,11 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentStylist: selectCurrentStylist,
+  stylistData: selectStylistData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentStylist: (user) => dispatch(setCurrentStylistAction(user)),
+  setStylistData: (user) => dispatch(setStylistDataAction(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -15,6 +15,7 @@ import {
 
 import SessionRequestDialogContainer from '../../components/SessionRequestDialog/SessionRequestDialog.container';
 import AddCommentDialogContainer from '../../components/AddCommentDialog/AddCommentDialog.container';
+import Comment from '../../components/Comment/Comment';
 
 import useStyles from './StylistPage.styles';
 
@@ -160,10 +161,7 @@ const StylistPageContent = ({
         {comments &&
           comments.map((comment) => (
             <Grid item xs={12} sm={6} key={comment.id}>
-              <Paper className={classes.comment} key={comment.id}>
-                <Typography variant='h5'>{comment.commentatorName}</Typography>
-                <Typography>{comment.text}</Typography>
-              </Paper>
+              <Comment comment={comment} />
             </Grid>
           ))}
       </Grid>

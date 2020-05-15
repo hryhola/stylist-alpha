@@ -7,6 +7,7 @@ const StylistPageLoading = ({ error }) => {
     <>
       {error ? (
         <Typography variant='h5' color='error'>
+          <br />
           {error.message}
         </Typography>
       ) : (

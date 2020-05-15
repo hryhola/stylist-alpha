@@ -19,23 +19,18 @@ const StylistListItem = ({
 
   return (
     <Paper className={classes.stylistItem}>
-      <Grid
-        container
-        direction='row'
-        justify='space-between'
-        alignItems='center'
-      >
-        <div>
-          <Typography variant='h4'>
-            <RouterLink to={`/stylist/${id}`}>{stylistName}</RouterLink>
-          </Typography>
-          <Typography color='textSecondary'>{shopAddress}</Typography>
-          <Typography color='textSecondary'>{phoneNumber}</Typography>
-          <p>{about}</p>
-        </div>
-        <div>
+      <Grid container direction='row'>
+        <Grid container direction='row' wrap='nowrap' justify='space-between'>
+          <Grid className={classes.info} container direction='column'>
+            <Typography variant='h4'>
+              <RouterLink to={`/stylist/${id}`}>{stylistName}</RouterLink>
+            </Typography>
+            <Typography color='textSecondary'>{shopAddress}</Typography>
+            <Typography color='textSecondary'>{phoneNumber}</Typography>
+          </Grid>
           <Grid
             container
+            className={classes.workTime}
             direction='column'
             justify='center'
             alignItems='center'
@@ -43,6 +38,9 @@ const StylistListItem = ({
             <Typography variant='h5'>{workTimeStart}</Typography>
             <Typography variant='h5'>{workTimeEnd}</Typography>
           </Grid>
+        </Grid>
+        <div>
+          <p>{about}</p>
         </div>
       </Grid>
     </Paper>

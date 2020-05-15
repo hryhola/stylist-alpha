@@ -1,7 +1,6 @@
 import { StylistTypes } from './stylist.types';
 
 const INITIAL_STATE = {
-  currentStylist: null,
   stylistList: [],
   stylistListLoading: true,
   fetchStylistError: null,
@@ -15,11 +14,6 @@ const INITIAL_STATE = {
 
 const stylistReducer = (state = INITIAL_STATE, { type, payload }) => {
   switch (type) {
-    case StylistTypes.SET_CURRENT_STYLIST:
-      return {
-        ...state,
-        currentStylist: payload,
-      };
     case StylistTypes.FETCH_STYLIST_LIST_START: {
       return {
         ...state,
