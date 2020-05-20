@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import HeaderContainer from './components/Header/Header.container';
 
@@ -18,7 +18,7 @@ import { selectStylistData } from './redux/organizer/organizer.selectors';
 
 class App extends React.Component {
   componentDidMount() {
-    const { setStylistData, history } = this.props;
+    const { setStylistData } = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -30,7 +30,6 @@ class App extends React.Component {
             ...snapShot.data(),
           });
         });
-        history.push('/');
       } else setStylistData(userAuth);
     });
   }
@@ -49,6 +48,8 @@ class App extends React.Component {
             <Switch>
               <Route path='/stylist-list' component={StylistListPage} />
               <Route path='/' component={HomePage} />
+              <Route path='/signin' component={() => <Redirect to='/' />} />
+              <Route path='/signup' component={() => <Redirect to='/' />} />
             </Switch>
           ) : (
             <Switch>

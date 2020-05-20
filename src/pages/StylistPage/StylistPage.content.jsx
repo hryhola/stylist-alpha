@@ -119,7 +119,7 @@ const StylistPageContent = ({
                   </TableCell>
                   <TableCell align='right'>{row.price} грн</TableCell>
                   <TableCell align='right'>
-                    {row.durationInMitutes} хв
+                    {row.durationInMinutes} хв
                   </TableCell>
                 </TableRow>
               ))}

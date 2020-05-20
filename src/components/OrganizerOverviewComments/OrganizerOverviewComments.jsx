@@ -9,7 +9,6 @@ const OrganizerOverviewComments = ({
   isLoadingOverviewComments,
   loadingOverviewCommentsError,
 }) => {
-  console.log(overviewComments);
   return (
     <Grid container spacing={3}>
       {!isLoadingOverviewComments && overviewComments ? (
