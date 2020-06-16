@@ -1,4 +1,5 @@
 import React from 'react';
+import { updateUserProfile } from '../../firebase/user';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -8,8 +9,17 @@ import TextFieldWithError from '../TextFieldWithError/TextFieldWithError';
 
 import useStyles from './SettingsFrame.styles';
 
-const SettingsFrame = ({ stylistData }) => {
-  const onSubmit = async (values, actions) => alert('Збережено');
+const SettingsFrame = ({ stylistData, setStylistData }) => {
+  const onSubmit = async (values, actions) => {
+    actions.setSubmitting(true);
+    try {
+      await updateUserProfile(stylistData.id, values);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      actions.setSubmitting(false);
+    }
+  };
 
   const classes = useStyles();
 
@@ -23,12 +33,12 @@ const SettingsFrame = ({ stylistData }) => {
     stylistName,
     workTimeStart,
     workTimeEnd,
-    password,
-    details,
+    about,
   } = stylistData;
 
   const initialValues = {
-    email,
+    oldEmail: email,
+    newEmail: email,
     facebookLink,
     instagramLink,
     phoneNumber,
@@ -37,23 +47,30 @@ const SettingsFrame = ({ stylistData }) => {
     stylistName,
     workTimeStart,
     workTimeEnd,
-    password,
-    details,
+    oldPassword: '',
+    newPassword: '',
+    about,
   };
 
   const reqText = "Це поле обов'язкове!";
   const validationSchema = yup.object().shape({
     stylistName: yup.string().required(reqText),
     phoneNumber: yup.string().required(reqText),
-    email: yup.string().email('Введіть коректну пошту').required(reqText),
+    oldEmail: yup.string().email('Введіть коректну пошту').required(reqText),
+    newEmail: yup.string().email('Введіть коректну пошту').required(reqText),
     shopAddress: yup.string().required(reqText),
     workTimeStart: yup.string().required(reqText),
     workTimeEnd: yup.string().required(reqText),
     shopName: yup.string(),
     facebookLink: yup.string(),
     instagramLink: yup.string(),
-    details: yup.string(),
-    password: yup
+    about: yup.string(),
+    newPassword: yup
+      .string()
+      .min(6, 'Пароль занадто короткий')
+      .max(30, 'Пароль занадто довгий')
+      .required(reqText),
+    oldPassword: yup
       .string()
       .min(6, 'Пароль занадто короткий')
       .max(30, 'Пароль занадто довгий')
@@ -105,14 +122,26 @@ const SettingsFrame = ({ stylistData }) => {
             <TextFieldWithError
               className={classes.textField}
               type='text'
-              label='Електронна пошта'
+              label='Стара електронна пошта'
               onChange={props.handleChange}
               onBlur={props.handleBlur}
-              value={props.values.email}
-              name='email'
+              value={props.values.oldEmail}
+              name='oldEmail'
               disabled={props.isSubmitting}
-              isVisibleError={props.errors.email && props.touched.email}
-              errorMessage={props.errors.email}
+              isVisibleError={props.errors.oldEmail && props.touched.oldEmail}
+              errorMessage={props.errors.oldEmail}
+            />
+            <TextFieldWithError
+              className={classes.textField}
+              type='text'
+              label='Нова електронна пошта'
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
+              value={props.values.newEmail}
+              name='newEmail'
+              disabled={props.isSubmitting}
+              isVisibleError={props.errors.newEmail && props.touched.newEmail}
+              errorMessage={props.errors.newEmail}
             />
             <TextFieldWithError
               className={classes.textField}
@@ -199,16 +228,42 @@ const SettingsFrame = ({ stylistData }) => {
             <TextFieldWithError
               className={classes.textField}
               type='password'
-              label='Пароль'
+              label='Старий пароль'
               onChange={props.handleChange}
               onBlur={props.handleBlur}
-              value={props.values.password}
-              name='password'
+              value={props.values.oldPassword}
+              name='oldPassword'
               disabled={props.isSubmitting}
-              isVisibleError={props.errors.password && props.touched.password}
-              errorMessage={props.errors.password}
+              isVisibleError={
+                props.errors.oldPassword && props.touched.oldPassword
+              }
+              errorMessage={props.errors.oldPassword}
             />
-
+            <TextFieldWithError
+              className={classes.textField}
+              type='password'
+              label='Новий пароль'
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
+              value={props.values.newPassword}
+              name='newPassword'
+              disabled={props.isSubmitting}
+              isVisibleError={
+                props.errors.newPassword && props.touched.newPassword
+              }
+              errorMessage={props.errors.newPassword}
+            />
+            <TextFieldWithError
+              className={classes.textField}
+              label='Деталі'
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
+              value={props.values.about}
+              name='about'
+              disabled={props.isSubmitting}
+              isVisibleError={props.errors.about && props.touched.about}
+              errorMessage={props.errors.about}
+            />
             <Button
               className={classes.button}
               variant='contained'
@@ -216,7 +271,7 @@ const SettingsFrame = ({ stylistData }) => {
               type='submit'
               disabled={props.isSubmitting}
             >
-              Надіслати
+              Зберегти
             </Button>
           </Grid>
         </form>

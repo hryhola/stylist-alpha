@@ -1,29 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import ClientsFrameTable from './ClientsFrame.table';
 
-const ClientsFrame = ({ fetchServices, id, isLoading }) => {
+import LoadingOrError from '../LoadingOrError/LoadingOrError';
+
+const ClientsFrame = ({ fetchClients, id, isLoading, error, clients }) => {
+  useEffect(() => {
+    const get = async (id) => {
+      fetchClients(id);
+    };
+    get(id);
+  }, [fetchClients, id]);
   return (
     <>
-      <ClientsFrameTable
-        clients={[
-          {
-            displayName: 'Василь',
-            phoneNumber: '+3806693423',
-            socialLink: 'https://www.instagram.com/realdonaldtrump',
-          },
-          {
-            displayName: 'Петро',
-            phoneNumber: '+382343',
-            socialLink: 'https://www.instagram.com/realdonaldtrump',
-          },
-          {
-            displayName: 'Олег',
-            phoneNumber: '+343243243423',
-            socialLink: 'https://www.instagram.com/realdonaldtrump',
-          },
-        ]}
-      />
+      {isLoading ? (
+        <LoadingOrError error={error} />
+      ) : (
+        <ClientsFrameTable clients={clients} id={id} />
+      )}
     </>
   );
 };

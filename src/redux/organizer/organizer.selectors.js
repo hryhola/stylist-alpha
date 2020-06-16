@@ -22,3 +22,15 @@ export const selectIsLoadingOverviewComments = createSelector(
   [selectOrganizer],
   (organizer) => organizer.isLoadingOverviewComments
 );
+export const selectOverviewRequests = createSelector(
+  [selectOrganizer],
+  (organizer) => organizer.overviewSessionRequests
+);
+export const selectLoadingOverviewRequestsError = createSelector(
+  [selectOrganizer],
+  (organizer) => organizer.loadingOverviewCommentsError
+);
+export const selectIsLoadingOverviewRequests = createSelector(
+  [selectOrganizer],
+  (organizer) => organizer.isLoadingOverviewSessionRequests
+);

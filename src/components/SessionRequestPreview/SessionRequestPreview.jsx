@@ -9,7 +9,7 @@ const SessionRequestPreview = ({ sessionRequest }) => {
   return (
     <Paper className={classes.paper} key={sessionRequest.id}>
       <Typography variant='h5'>{sessionRequest.clientName}</Typography>
-      <Typography>{sessionRequest.service}</Typography>
+      <Typography>{sessionRequest.service.displayName}</Typography>
       <Typography>{sessionRequest.dateTime}</Typography>
     </Paper>
   );

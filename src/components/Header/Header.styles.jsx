@@ -27,6 +27,13 @@ const useStyles = makeStyles((theme) => ({
   mrLeftAuto: {
     marginLeft: 'auto',
   },
+  toolbar: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+  },
 }));
 
 export default useStyles;

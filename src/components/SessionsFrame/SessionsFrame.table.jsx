@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MaterialTable from 'material-table';
 
-const SessionsFrameTable = ({ sessions }) => {
+import { deleteSession, setIsDoneSession } from '../../firebase/sessions';
+
+import localization from '../../shared/material-table-localization';
+
+const SessionsFrameTable = ({ sessions, id }) => {
+  const [data, setData] = useState(sessions);
   const columns = [
     {
       title: "Ім'я",
@@ -22,6 +27,7 @@ const SessionsFrameTable = ({ sessions }) => {
     {
       title: 'Виконаний',
       field: 'isDone',
+      render: (row) => (row.isDone === true ? '✓' : ' '),
     },
     {
       title: 'Ціна',
@@ -33,23 +39,45 @@ const SessionsFrameTable = ({ sessions }) => {
     },
   ];
   const actions = [
-    {
+    (rowData) => ({
       icon: 'done',
       tooltip: 'Підтвердити',
-      onClick: (event, rowData) => alert('Ти виконав замовлення'),
-    },
+      onClick: (event, rowData) =>
+        new Promise((resolve, reject) => {
+          setIsDoneSession(id, rowData)
+            .then((id) => {
+              const index = data.findIndex((row) => row.id === rowData.id);
+              const newDataList = [...data];
+              newDataList[index].isDone = true;
+              setData(newDataList);
+              resolve();
+            })
+            .catch((error) => reject());
+        }),
+      disabled: rowData.isDone,
+    }),
     {
       icon: 'delete',
       tooltip: 'Видалити',
-      onClick: (event, rowData) => alert('Ти видалив замовлення'),
+      onClick: (event, rowData) =>
+        new Promise((resolve, reject) => {
+          deleteSession(id, rowData)
+            .then((id) => {
+              const newDataList = [...data.filter((s) => s.id !== rowData.id)];
+              setData(newDataList);
+              resolve();
+            })
+            .catch((error) => reject());
+        }),
     },
   ];
   return (
     <MaterialTable
       actions={actions}
       columns={columns}
-      data={sessions}
+      data={data}
       title='Сеанси'
+      localization={localization}
     />
   );
 };

@@ -1,47 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
+import LoadingOrError from '../LoadingOrError/LoadingOrError';
 import SessionsFrameTable from './SessionsFrame.table';
 import SessionsFrameRequestsTable from './SessionsFrame.requestsTable';
 import { Grid } from '@material-ui/core';
 
-const SessionsFrame = () => {
+const SessionsFrame = ({
+  fetchRequests,
+  fetchSessions,
+  isLoadingRequests,
+  isLoadingSessions,
+  requests,
+  requestsError,
+  sessions,
+  sessionsError,
+  id,
+}) => {
+  useEffect(() => {
+    const get = async (id) => {
+      fetchRequests(id);
+      fetchSessions(id);
+    };
+    get(id);
+  }, [fetchRequests, fetchSessions, id]);
   return (
     <Grid container spacing={2} direction='column'>
       <Grid item>
-        <SessionsFrameRequestsTable
-          sessionRequests={[
-            {
-              clientName: 'Петро',
-              clientPhoneNumber: '+39099324343',
-              clientSocialLink: '',
-              dateTime: new Date().toTimeString(),
-              service: 'Стрижка',
-            },
-            {
-              clientName: 'Василь',
-              clientPhoneNumber: '+3923423443',
-              clientSocialLink: '',
-              dateTime: new Date().toTimeString(),
-              service: 'Стрижка крута',
-            },
-          ]}
-        />
+        {isLoadingRequests ? (
+          <LoadingOrError error={requestsError} />
+        ) : (
+          <SessionsFrameRequestsTable sessionRequests={requests} id={id} />
+        )}
       </Grid>
       <Grid item>
-        <SessionsFrameTable
-          sessions={[
-            {
-              clientId: undefined,
-              clientName: 'Григорій',
-              clientPhoneNumber: '+39099324343',
-              clientSocialLink: undefined,
-              dateTime: new Date().toTimeString(),
-              serviceName: 'Стрижка',
-              isDone: true,
-              totalPrice: 1000,
-            },
-          ]}
-        />
+        {isLoadingSessions ? (
+          <LoadingOrError error={sessionsError} />
+        ) : (
+          <SessionsFrameTable sessions={sessions} id={id} />
+        )}
       </Grid>
     </Grid>
   );

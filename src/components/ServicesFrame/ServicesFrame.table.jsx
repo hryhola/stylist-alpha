@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import {
+  addService,
+  updateService,
+  deleteService,
+} from '../../firebase/services';
+
+import localization from '../../shared/material-table-localization';
+
 import MaterialTable from 'material-table';
 
 const ServicesFrameTable = ({ services, id }) => {
+  const [servicesData, setServices] = useState(services);
   const columns = [
     {
       title: 'Назва',
@@ -21,29 +31,55 @@ const ServicesFrameTable = ({ services, id }) => {
     isDeletable: (rowData) => true, // only name(a) rows would be deletable
     onRowAdd: (newData) =>
       new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve();
-        }, 1000);
+        if (newData.displayName && newData.durationInMinutes && newData.price) {
+          addService(id, newData)
+            .then((id) => {
+              const newDataList = [...servicesData, { id, ...newData }];
+              setServices(newDataList);
+              resolve();
+            })
+            .catch((error) => reject());
+        } else {
+          reject();
+        }
       }),
     onRowUpdate: (newData, oldData) =>
       new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve();
-        }, 1000);
+        if (newData.displayName && newData.durationInMinutes && newData.price) {
+          updateService(id, newData)
+            .then((id) => {
+              const newDataList = [
+                ...servicesData.filter((s) => s.id !== newData.id),
+                newData,
+              ];
+              setServices(newDataList);
+              resolve();
+            })
+            .catch((error) => reject());
+        } else {
+          reject();
+        }
       }),
     onRowDelete: (oldData) =>
       new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve();
-        }, 1000);
+        deleteService(id, oldData)
+          .then(() => {
+            const newDataList = [
+              ...servicesData.filter((s) => s.id !== oldData.id),
+            ];
+            setServices(newDataList);
+            resolve();
+          })
+          .catch((error) => reject());
       }),
   };
   return (
     <MaterialTable
       columns={columns}
-      data={services}
+      data={servicesData}
       editable={editable}
       title='Послуги'
+      localization={localization}
     />
   );
 };

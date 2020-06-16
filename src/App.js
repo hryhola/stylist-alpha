@@ -39,17 +39,25 @@ class App extends React.Component {
   }
   render() {
     const isAuthorized = !!this.props.stylistData;
+    console.log(`isAuthorized: ${isAuthorized}`);
     return (
       <>
         <HeaderContainer />
         <Switch>
+          <Route exact path='/stylist-alpha'>
+            <Redirect to='/' />
+          </Route>
           <Route path='/stylist/:id' component={StylistPageContatiner} />
           {isAuthorized ? (
             <Switch>
+              <Route path='/signin'>
+                <Redirect push to='/' />
+              </Route>
+              <Route path='/signup'>
+                <Redirect push to='/' />
+              </Route>
               <Route path='/stylist-list' component={StylistListPage} />
               <Route path='/' component={HomePage} />
-              <Route path='/signin' component={() => <Redirect to='/' />} />
-              <Route path='/signup' component={() => <Redirect to='/' />} />
             </Switch>
           ) : (
             <Switch>

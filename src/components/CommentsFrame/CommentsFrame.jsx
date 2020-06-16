@@ -1,28 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import CommentsFrameTable from './CommentsFrame.table';
+import LoadingOrError from '../LoadingOrError/LoadingOrError';
 
-const CommentsFrame = ({ fetchServices, id, isLoading }) => {
+const CommentsFrame = ({ fetchComments, id, isLoading, error, comments }) => {
+  useEffect(() => {
+    const get = async (id) => {
+      fetchComments(id);
+    };
+    get(id);
+  }, [fetchComments, id]);
   return (
     <>
-      <CommentsFrameTable
-        comments={[
-          {
-            commentatorName: 'Василь',
-            commentatorEmail: 'mail@mail.m',
-            text:
-              'Lorem sdf p;wdfk pofjkdp oewkp ewpofepwfkwfkwopf kwowijwo fjoiewjiojfsd',
-            createdAt: new Date().toTimeString(),
-          },
-          {
-            commentatorName: 'Петро',
-            commentatorEmail: '3уцфы@mail.m',
-            text:
-              'Loвфывыфвыфв ывфdp oewkp ewpofepwfkwfkwopf kwowijwo fjoiewjiojfsd',
-            createdAt: new Date().toTimeString(),
-          },
-        ]}
-      />
+      {isLoading ? (
+        <LoadingOrError error={error} />
+      ) : (
+        <CommentsFrameTable comments={comments} id={id} />
+      )}
     </>
   );
 };

@@ -24,7 +24,7 @@ const Header = ({ stylistData }) => {
     <div className={classes.root}>
       <AppBar position='static'>
         <Container>
-          <Toolbar>
+          <Toolbar className={classes.toolbar}>
             <IconButton
               edge='start'
               className={classes.menuButton}
@@ -40,15 +40,17 @@ const Header = ({ stylistData }) => {
             </Typography>
             {isAuthorized ? (
               <>
-                <div className={classes.navigation}>
-                  <Button
-                    color='inherit'
-                    to='/stylist-list'
-                    component={RouterLink}
-                  >
-                    Стилісти
-                  </Button>
-                </div>
+                <Hidden xsDown>
+                  <div className={classes.navigation}>
+                    <Button
+                      color='inherit'
+                      to='/stylist-list'
+                      component={RouterLink}
+                    >
+                      Стилісти
+                    </Button>
+                  </div>
+                </Hidden>
                 <div className={classes.signOut}>
                   <Hidden xsDown>
                     <Typography variant='subtitle1' className={classes.welcome}>

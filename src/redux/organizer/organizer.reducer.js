@@ -4,8 +4,8 @@ import { handleActions } from 'redux-actions';
 const INITIAL_STATE = {
   stylistData: null,
 
-  overviewSessionRequests: null,
-  overviewComments: null,
+  overviewSessionRequests: [],
+  overviewComments: [],
   clients: [],
   comments: [],
   services: [],
@@ -48,6 +48,21 @@ const ACTIONS_MAP = {
     isLoadingOverviewComments: false,
     loadingOverviewCommentsError: null,
     overviewComments: payload,
+  }),
+  [OT.FETCH_OVERVIEW_REQUESTS_START]: (state) => ({
+    ...state,
+    isLoadingOverviewSessionRequests: true,
+  }),
+  [OT.FETCH_OVERVIEW_REQUESTS_FALIURE]: (state, { payload }) => ({
+    ...state,
+    isLoadingOverviewSessionRequests: false,
+    loadingOverviewSessionRequestsError: payload,
+  }),
+  [OT.FETCH_OVERVIEW_REQUESTS_SUCCESS]: (state, { payload }) => ({
+    ...state,
+    isLoadingOverviewSessionRequests: false,
+    loadingOverviewSessionRequestsError: null,
+    overviewSessionRequests: payload,
   }),
 };
 

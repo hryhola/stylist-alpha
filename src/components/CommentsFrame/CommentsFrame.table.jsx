@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MaterialTable from 'material-table';
 
+import localization from '../../shared/material-table-localization';
+
+import { deleteComment } from '../../firebase/comments';
+
 const CommentsFrameTable = ({ comments, id }) => {
+  const [commentsDate, setCommentsData] = useState(comments);
   const columns = [
     {
       title: "Ім'я",
@@ -24,15 +29,27 @@ const CommentsFrameTable = ({ comments, id }) => {
     {
       icon: 'delete',
       tooltip: 'Видалити коментар',
-      onClick: (event, rowData) => alert('Ти видалив коментар'),
+      onClick: (event, rowData) =>
+        new Promise((resolve, reject) => {
+          deleteComment(id, rowData)
+            .then(() => {
+              const newDataList = [
+                ...commentsDate.filter((s) => s.id !== rowData.id),
+              ];
+              setCommentsData(newDataList);
+              resolve();
+            })
+            .catch((error) => reject());
+        }),
     },
   ];
   return (
     <MaterialTable
       columns={columns}
-      data={comments}
+      data={commentsDate}
       actions={actions}
       title='Відгуки'
+      localization={localization}
     />
   );
 };

@@ -6,11 +6,18 @@ import OrganizerOverviewSessionRequests from '../OrganizerOverviewSessionRequest
 
 import useStyles from './OrganizerOverview.styles';
 
-const OrganizerOverview = ({ fetchOverviewComments, id }) => {
+const OrganizerOverview = ({
+  fetchOverviewComments,
+  fetchOverviewRequests,
+  id,
+}) => {
   useEffect(() => {
-    const fetchComments = async (id) => fetchOverviewComments(id);
-    fetchComments(id);
-  }, [fetchOverviewComments, id]);
+    const get = async (id) => {
+      fetchOverviewComments(id);
+      fetchOverviewRequests(id);
+    };
+    get(id);
+  }, [fetchOverviewComments, fetchOverviewRequests, id]);
 
   const classes = useStyles();
   return (
