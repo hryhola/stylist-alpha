@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/stylist-alpha/static/css/main.5c24edb5.chunk.css",
-    "main.js": "/stylist-alpha/static/js/main.88a862c9.chunk.js",
-    "main.js.map": "/stylist-alpha/static/js/main.88a862c9.chunk.js.map",
+    "main.js": "/stylist-alpha/static/js/main.d7a551d7.chunk.js",
+    "main.js.map": "/stylist-alpha/static/js/main.d7a551d7.chunk.js.map",
     "runtime-main.js": "/stylist-alpha/static/js/runtime-main.e582cef4.js",
     "runtime-main.js.map": "/stylist-alpha/static/js/runtime-main.e582cef4.js.map",
     "static/js/2.74daf82e.chunk.js": "/stylist-alpha/static/js/2.74daf82e.chunk.js",
     "static/js/2.74daf82e.chunk.js.map": "/stylist-alpha/static/js/2.74daf82e.chunk.js.map",
     "index.html": "/stylist-alpha/index.html",
-    "precache-manifest.7246ad77e3af98a8a24150cf10e0bb06.js": "/stylist-alpha/precache-manifest.7246ad77e3af98a8a24150cf10e0bb06.js",
+    "precache-manifest.876ef8557d5f46638c00d9b7c947393d.js": "/stylist-alpha/precache-manifest.876ef8557d5f46638c00d9b7c947393d.js",
     "service-worker.js": "/stylist-alpha/service-worker.js",
     "static/css/main.5c24edb5.chunk.css.map": "/stylist-alpha/static/css/main.5c24edb5.chunk.css.map",
     "static/js/2.74daf82e.chunk.js.LICENSE.txt": "/stylist-alpha/static/js/2.74daf82e.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.e582cef4.js",
     "static/js/2.74daf82e.chunk.js",
     "static/css/main.5c24edb5.chunk.css",
-    "static/js/main.88a862c9.chunk.js"
+    "static/js/main.d7a551d7.chunk.js"
   ]
 }

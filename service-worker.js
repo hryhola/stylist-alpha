@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/stylist-alpha/precache-manifest.7246ad77e3af98a8a24150cf10e0bb06.js"
+  "/stylist-alpha/precache-manifest.876ef8557d5f46638c00d9b7c947393d.js"
 );
 
 self.addEventListener('message', (event) => {

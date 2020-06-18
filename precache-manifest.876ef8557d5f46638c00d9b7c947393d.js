@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "43a02c459b1f0e4966f4f65b1720e267",
+    "revision": "410e6b970227663146837208a47c9d53",
     "url": "/stylist-alpha/index.html"
   },
   {
-    "revision": "8a6ea2061317d01bd1e4",
+    "revision": "62c67fdc1f55de1fcb4e",
     "url": "/stylist-alpha/static/css/main.5c24edb5.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/stylist-alpha/static/js/2.74daf82e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8a6ea2061317d01bd1e4",
-    "url": "/stylist-alpha/static/js/main.88a862c9.chunk.js"
+    "revision": "62c67fdc1f55de1fcb4e",
+    "url": "/stylist-alpha/static/js/main.d7a551d7.chunk.js"
   },
   {
     "revision": "3b45051af072bb9ab487",
