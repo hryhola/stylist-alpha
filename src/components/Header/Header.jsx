@@ -30,7 +30,7 @@ const Header = ({ stylistData }) => {
               className={classes.menuButton}
               color='inherit'
               aria-label='menu'
-              to='/'
+              to='/stylist-alpha'
               component={RouterLink}
             >
               <Logo fill='white' width='40' height='40' />
@@ -44,7 +44,7 @@ const Header = ({ stylistData }) => {
                   <div className={classes.navigation}>
                     <Button
                       color='inherit'
-                      to='/stylist-list'
+                      to='/stylist-alpha/stylist-list'
                       component={RouterLink}
                     >
                       Стилісти
@@ -67,13 +67,17 @@ const Header = ({ stylistData }) => {
               <>
                 <Button
                   color='inherit'
-                  to='/signin'
+                  to='/stylist-alpha/signin'
                   component={RouterLink}
                   className={classes.mrLeftAuto}
                 >
                   Увійти
                 </Button>
-                <Button color='inherit' to='/signup' component={RouterLink}>
+                <Button
+                  color='inherit'
+                  to='/stylist-alpha/signup'
+                  component={RouterLink}
+                >
                   Реєстрація
                 </Button>
               </>

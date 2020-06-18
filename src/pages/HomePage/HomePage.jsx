@@ -16,12 +16,36 @@ const HomePage = () => {
     <Container>
       <OrganizerNavigation />
       <Switch>
-        <Route exact path='/' component={OrganizerOverviewContainer} />
-        <Route exact path='/services' component={ServicesFrameContainer} />
-        <Route exact path='/clients' component={ClientsFrameContainer} />
-        <Route exact path='/comments' component={CommentsFrameContainer} />
-        <Route exact path='/sessions' component={SessionsFrameContainer} />
-        <Route exact path='/settings' component={SettingsFrameContainer} />
+        <Route
+          exact
+          path='/stylist-alpha'
+          component={OrganizerOverviewContainer}
+        />
+        <Route
+          exact
+          path='/stylist-alpha/services'
+          component={ServicesFrameContainer}
+        />
+        <Route
+          exact
+          path='/stylist-alpha/clients'
+          component={ClientsFrameContainer}
+        />
+        <Route
+          exact
+          path='/stylist-alpha/comments'
+          component={CommentsFrameContainer}
+        />
+        <Route
+          exact
+          path='/stylist-alpha/sessions'
+          component={SessionsFrameContainer}
+        />
+        <Route
+          exact
+          path='/stylist-alpha/settings'
+          component={SettingsFrameContainer}
+        />
       </Switch>
     </Container>
   );

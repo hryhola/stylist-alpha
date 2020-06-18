@@ -17,7 +17,7 @@ const SignUpPage = ({ setCurrentUser }) => {
         </Paper>
         <Paper elevation={3} className={classes.SignInLinkContainer}>
           Уже маєте акаунт?&nbsp;
-          <Link component={RouterLink} to='/signin'>
+          <Link component={RouterLink} to='/stylist-alpha/signin'>
             Увійдіть
           </Link>
         </Paper>

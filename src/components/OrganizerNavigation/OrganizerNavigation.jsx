@@ -17,27 +17,27 @@ const OrganizerNavigation = () => {
   return (
     <Grid className={classes.navigation} container justify='center'>
       <ButtonGroup variant='text' color='primary'>
-        <Button component={RouterLink} to='/'>
+        <Button component={RouterLink} to='/stylist-alpha'>
           <HomeIcon />
           <Hidden smDown>Огляд</Hidden>
         </Button>
-        <Button component={RouterLink} to='/services'>
+        <Button component={RouterLink} to='/stylist-alpha/services'>
           <ListIcon />
           <Hidden xsDown>Послуги</Hidden>
         </Button>
-        <Button component={RouterLink} to='/clients'>
+        <Button component={RouterLink} to='/stylist-alpha/clients'>
           <PeopleAltIcon />
           <Hidden xsDown>Клієнти</Hidden>
         </Button>
-        <Button component={RouterLink} to='/sessions'>
+        <Button component={RouterLink} to='/stylist-alpha/sessions'>
           <DateRangeIcon />
           <Hidden xsDown>Сеанси</Hidden>
         </Button>
-        <Button component={RouterLink} to='/comments'>
+        <Button component={RouterLink} to='/stylist-alpha/comments'>
           <CommentIcon />
           <Hidden xsDown>Відгуки</Hidden>
         </Button>
-        <Button component={RouterLink} to='/settings'>
+        <Button component={RouterLink} to='/stylist-alpha/settings'>
           <SettingsIcon />
           <Hidden smDown>Налаштування</Hidden>
         </Button>

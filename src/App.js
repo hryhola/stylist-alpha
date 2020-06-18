@@ -44,26 +44,32 @@ class App extends React.Component {
       <>
         <HeaderContainer />
         <Switch>
-          <Route exact path='/stylist-alpha'>
-            <Redirect to='/' />
+          <Route exact path='/'>
+            <Redirect to='/stylist-alpha' />
           </Route>
-          <Route path='/stylist/:id' component={StylistPageContatiner} />
+          <Route
+            path='/stylist-alpha/stylist/:id'
+            component={StylistPageContatiner}
+          />
           {isAuthorized ? (
             <Switch>
-              <Route path='/signin'>
-                <Redirect push to='/' />
+              <Route path='/stylist-alpha/signin'>
+                <Redirect push to='/stylist-alpha' />
               </Route>
-              <Route path='/signup'>
-                <Redirect push to='/' />
+              <Route path='/stylist-alpha/signup'>
+                <Redirect push to='/stylist-alpha/' />
               </Route>
-              <Route path='/stylist-list' component={StylistListPage} />
-              <Route path='/' component={HomePage} />
+              <Route
+                path='/stylist-alpha/stylist-list'
+                component={StylistListPage}
+              />
+              <Route path='/stylist-alpha/' component={HomePage} />
             </Switch>
           ) : (
             <Switch>
-              <Route exact path='/' component={StylistListPage} />
-              <Route path='/signin' component={SignInPage} />
-              <Route path='/signup' component={SignUpPage} />
+              <Route exact path='/stylist-alpha' component={StylistListPage} />
+              <Route path='/stylist-alpha/signin' component={SignInPage} />
+              <Route path='/stylist-alpha/signup' component={SignUpPage} />
             </Switch>
           )}
         </Switch>

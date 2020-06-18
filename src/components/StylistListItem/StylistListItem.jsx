@@ -23,7 +23,9 @@ const StylistListItem = ({
         <Grid container direction='row' wrap='nowrap' justify='space-between'>
           <Grid className={classes.info} container direction='column'>
             <Typography variant='h4'>
-              <RouterLink to={`/stylist/${id}`}>{stylistName}</RouterLink>
+              <RouterLink to={`/stylist-alpha/stylist/${id}`}>
+                {stylistName}
+              </RouterLink>
             </Typography>
             <Typography color='textSecondary'>{shopAddress}</Typography>
             <Typography color='textSecondary'>{phoneNumber}</Typography>
